@@ -18,6 +18,9 @@ import {
 import { Image, TouchableOpacity } from 'react-native';
 
 class HomeScreen extends React.Component {
+    static navigationOptions = {
+        drawerLabel: 'Home'
+    };
     componentDidMount() {
         this.props.getProductDispatch();
     }
@@ -25,9 +28,6 @@ class HomeScreen extends React.Component {
         this.props.viewDetailDispatch(id)
         this.props.navigation.navigate('Details')
     }
-    static navigationOptions = {
-        drawerLabel: 'Home'
-    };
     render() {
         const { isLoading, productList } = this.props;
         return (

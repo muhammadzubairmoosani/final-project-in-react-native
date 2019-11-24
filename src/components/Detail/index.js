@@ -19,6 +19,7 @@ import {
 } from 'native-base';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
+import cartMiddleware from '../../../store/middleWare/cartMiddleware';
 
 class DetailsScreen extends React.Component {
     static navigationOptions = {
@@ -71,7 +72,7 @@ class DetailsScreen extends React.Component {
                                         <Icon name="arrow-back" />
                                         <Text>Back</Text>
                                     </Button>
-                                    <Button iconRight onPress={() => this.props.navigation.navigate('Home')}>
+                                    <Button iconRight onPress={() => addToCartDispatch(itemDetail[0].id)}>
                                         <Text>Add to Cart</Text>
                                         <Icon name="md-cart" />
                                     </Button>
@@ -94,7 +95,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    // addToCartDispatch: id => dispatch(cartMiddleware.goCart(Number(id))),
+    addToCartDispatch: id => dispatch(cartMiddleware.goCart(Number(id)))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen)
