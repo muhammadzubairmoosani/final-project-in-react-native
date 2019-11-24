@@ -1,12 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
+import store from './store';
+import { Provider } from 'react-redux';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,185 +12,89 @@ import {
   Image
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
+// import HomeScreen from './src/components/Home'
+// import DetailsScreen from './src/components/Detail'
 // import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
-import {createDrawerNavigator} from 'react-navigation-drawer'
+// import { createAppContainer } from 'react-navigation';
+// import { createDrawerNavigator } from 'react-navigation-drawer'
+import MyApp from './src/components/Navigation';
 
-class HomeScreen extends React.Component {
-  static navigationOptions = {
-    drawerLabel: 'Home',
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        source={require('./download.png')}
-        style={[styles.icon, { tintColor: tintColor }]}
-      />
-    ),
-  };
+export default class App extends React.Component {
   render() {
     return (
-      <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <ScrollView
-            contentInsetAdjustmentBehavior="automatic"
-            style={styles.scrollView}>
-            <Header />
-            {global.HermesInternal == null ? null : (
-              <View style={styles.engine}>
-                <Text style={styles.footer}>Engine: Hermes</Text>
-              </View>
-            )}
-            <View style={styles.body}>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Step One</Text>
-                <Text style={styles.sectionDescription}>
-                  Edit <Text style={styles.highlight}>App.js</Text> to change this
-                  screen and then come back to see your edits.
-              </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>See Your Changes</Text>
-                <Text style={styles.sectionDescription}>
-                  <ReloadInstructions />
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Debug</Text>
-                <Text style={styles.sectionDescription}>
-                  <DebugInstructions />
-                </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Text style={styles.sectionTitle}>Learn More</Text>
-                <Text style={styles.sectionDescription}>
-                  Read the docs to discover what to do next:
-              </Text>
-              </View>
-              <View style={styles.sectionContainer}>
-                <Button
-                  title="Go to Details"
-                  onPress={() => this.props.navigation.navigate('Details')}
-                />
-              </View>
-              <View style={styles.sectionContainer}>
-                <Button
-                  title="Open"
-                  onPress={() => this.props.navigation.openDrawer()}
-                />
-              </View>
-
-              <LearnMoreLinks />
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </>
-    );
-  }
-};
-
-class DetailsScreen extends React.Component {
-  static navigationOptions = {
-    drawerLabel: 'Details',
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        source={require('./download.png')}
-        style={[styles.icon, { tintColor: tintColor }]}
-      />
-    ),
-  };
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Button
-          onPress={() => this.props.navigation.goBack()}
-          title='Go back home'
-        />
-      </View>
-    );
+      <Provider store={store}>
+        <MyApp />
+      </Provider>
+    )
   }
 }
 
-// const RootStack = createStackNavigator(
+// const HomeNavigator = createStackNavigator({
+//   Home: HomeScreen,
+// },
 //   {
-//     Home: HomeScreen,
-//     Details: DetailsScreen
-//   },
-//   {
-//     initialRoutName: 'Home'
+//     defaultNavigationOptions: ({ navigation }) => {
+//       return {
+//         headerStyle: {
+//           backgroundColor: '#3a9ad3'
+//         },
+//         headerTitle: 'Home',
+//         headerTintColor: '#fff',
+//         headerTitleStyle: {
+//           fontWeight: 'bold',
+//           textAlign: 'center',
+//           flex: 1
+//         },
+//         headerLeft: (
+//           <Button
+//             title="Open"
+//             onPress={() => navigation.openDrawer()}
+//           />
+//         ),
+//         headerRight: (
+//           <View />
+//         )
+//       }
+//     }
 //   }
 // )
 
-// const AppContainer = createAppContainer(RootStack);
-
-const DrawerNavigator = createDrawerNavigator({
-  Home: {
-    screen: HomeScreen,
-  },
-  Details: {
-    screen: DetailsScreen,
-  },
-});
-
-// const MyApp = createAppContainer(DrawerNavigator); 
-export default createAppContainer(DrawerNavigator);
-
-
-// export default class App extends React.Component {
-//   render() {
-//     return <MyApp />
-//     // return <AppContainer />
+// const DetailsNavigator = createStackNavigator({
+//   Details: DetailsScreen,
+// },
+//   {
+//     defaultNavigationOptions: ({ navigate }) => {
+//       return {
+//         headerStyle: {
+//           backgroundColor: '#3a9ad3'
+//         },
+//         headerTitle: 'Details',
+//         headerTintColor: '#fff',
+//         headerTitleStyle: {
+//           fontWeight: 'bold',
+//           textAlign: 'center',
+//           flex: 1
+//         },
+//         headerLeft: (
+//           <Button
+//             title="Open"
+//             onPress={() => navigation.openDrawer()}
+//           />
+//         ),
+//         headerRight: (
+//           <View />
+//         )
+//       }
+//     }
 //   }
-// }
+// )
 
+// const DrawerNavigator = createDrawerNavigator({
+//   Home: HomeNavigator,
+//   Details: DetailsNavigator,
+// });
 
-const styles = StyleSheet.create({
-  icon: {
-    width: 24,
-    height: 24,
-  },
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+// const MyApp = createAppContainer(DrawerNavigator);
+
+// export default <Provider store={store}>{App}</Provider>
+
