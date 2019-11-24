@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button } from 'native-base';
-const cards = [
-    {
-        text: 'Card One',
-        name: 'One',
-        image: require('./download.png'),
-    },
-];
-export default class DeckSwiperAdvancedExample extends Component {
+import { connect } from 'react-redux';
+
+// const cards = [
+//     {
+//         text: 'Card One',
+//         name: 'One',
+//         image: require('./download.png'),
+//     },
+// ];
+
+class DeckSwiperAdvancedExample extends Component {
     render() {
+        const { productList } = this.props;
+        console.log(productList.length)
         return (
             <Container>
-                {/* <Header /> */}
                 <View>
                     <DeckSwiper
                         ref={(c) => this._deckSwiper = c}
-                        dataSource={cards}
+                        // dataSource={cards}
+                        dataSource={productList}
                         renderEmpty={() =>
                             <View style={{ alignSelf: "center" }}>
                                 <Text>Over</Text>
@@ -26,25 +31,21 @@ export default class DeckSwiperAdvancedExample extends Component {
                             <Card style={{ elevation: 3 }}>
                                 <CardItem>
                                     <Left>
-                                        <Thumbnail source={item.image} />
+                                        <Thumbnail source={{ uri: item.img }} />
                                         <Body>
-                                            <Text>{item.text}</Text>
-                                            <Text note>NativeBase</Text>
+                                            <Text>{item.title}</Text>
+                                            <Text note>{item.brand_name}</Text>
                                         </Body>
                                     </Left>
                                 </CardItem>
                                 <CardItem cardBody>
-                                    <Image style={{ height: 300, flex: 1 }} source={item.image} />
-                                </CardItem>
-                                <CardItem>
-                                    <Icon name="heart" style={{ color: '#ED4A6A' }} />
-                                    <Text>{item.name}</Text>
+                                    <Image style={{ height: 300, flex: 1 }} source={{ uri: item.img }} />
                                 </CardItem>
                             </Card>
                         }
                     />
                 </View>
-                <View style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 0, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}>
+                <View style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 10, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}>
                     <Button iconLeft onPress={() => this._deckSwiper._root.swipeLeft()}>
                         <Icon name="arrow-back" />
                         <Text>Swipe Left</Text>
@@ -58,3 +59,20 @@ export default class DeckSwiperAdvancedExample extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    // console.log(state.productReducer)
+    return {
+        productList: state.productReducer.ProductList,
+        // searchKey: state.search_form_loadingReducer.searchKey,
+        // isLoading: state.search_form_loadingReducer.dataLoading
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    // addToCartDispatch: id => dispatch(cartMiddleware.goCart(Number(id))),
+    getProductDispatch: () => dispatch(productMiddleware.getAllProducts()),
+    // viewDetailDispatch: id => dispatch(productMiddleware.viewProductDetail(Number(id)))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckSwiperAdvancedExample)

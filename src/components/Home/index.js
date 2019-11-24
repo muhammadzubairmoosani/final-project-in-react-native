@@ -13,6 +13,7 @@ import {
     Image
 } from 'react-native';
 import DeckSwiperAdvancedExample from '../Card';
+
 class HomeScreen extends React.Component {
     componentDidMount() {
         this.props.getProductDispatch();
@@ -27,9 +28,6 @@ class HomeScreen extends React.Component {
         //     />
         // ),
     };
-    aa() {
-        this.props.navigation.closeDrawer()
-    }
 
     render() {
         return <DeckSwiperAdvancedExample />
