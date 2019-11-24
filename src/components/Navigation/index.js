@@ -1,15 +1,10 @@
-import {
-    View,
-    Button,
-} from 'react-native';
 import React from 'react';
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-
+import { Icon, View } from 'native-base';
 import HomeScreen from '../Home';
 import DetailsScreen from '../Detail';
-
 
 const HomeNavigator = createStackNavigator({
     Home: HomeScreen,
@@ -28,8 +23,9 @@ const HomeNavigator = createStackNavigator({
                     flex: 1
                 },
                 headerLeft: (
-                    <Button
-                        title="Open"
+                    <Icon
+                        name="md-menu"
+                        style={{ color: '#fff', marginLeft: 10 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -46,7 +42,7 @@ const DetailsNavigator = createStackNavigator({
     Details: DetailsScreen,
 },
     {
-        defaultNavigationOptions: ({ navigate }) => {
+        defaultNavigationOptions: ({ navigation }) => {
             return {
                 headerStyle: {
                     backgroundColor: '#3a9ad3'
@@ -59,8 +55,9 @@ const DetailsNavigator = createStackNavigator({
                     flex: 1
                 },
                 headerLeft: (
-                    <Button
-                        title="Open"
+                    <Icon
+                        name="md-menu"
+                        style={{ color: '#fff', marginLeft: 10 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -71,12 +68,6 @@ const DetailsNavigator = createStackNavigator({
         }
     }
 )
-
-//                     // <Icon
-//                     //   style={{ paddingLeft: 10, color: '#fff' }}
-//                     //   onPress={() => navigate.openDrawer()}
-//                     //   name='md-menu'
-//                     //   size={30} />
 
 const DrawerNavigator = createDrawerNavigator({
     Home: HomeNavigator,
