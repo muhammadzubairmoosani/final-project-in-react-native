@@ -75,7 +75,7 @@ class DetailsScreen extends React.Component {
                                         </Right>
                                     </CardItem>
                                     <View style={{ flexDirection: "row", flex: 1, justifyContent: 'space-between', padding: 15 }}>
-                                        <Button iconLeft onPress={() => this.props.navigation.navigate('Home')}>
+                                        <Button iconLeft info onPress={() => this.props.navigation.navigate('Home')}>
                                             <Icon name="arrow-back" />
                                             <Text>Back</Text>
                                         </Button>

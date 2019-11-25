@@ -14,8 +14,8 @@ export default class cartMiddleWare {
             firebase.database().ref('Products').once('value')
                 .then(snapshot => {
                     let arr = snapshot.val().filter(item => item.id === id);
-                    arr[0].qty = itemQty ? itemQty : 1;
-                    this.newArr.push(arr[0]);
+                    // arr[0].qty = itemQty ? itemQty : 1;
+                    // this.newArr.push(arr[0]);
                     dispatch(cartAction.addTocartInAction(arr));
                 })
                 .catch(err => console.log(err));

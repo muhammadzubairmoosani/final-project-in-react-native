@@ -6,6 +6,9 @@ import { Icon, View } from 'native-base';
 import HomeScreen from '../Home';
 import DetailsScreen from '../Detail';
 import CartScreen from '../Cart';
+import CheckOutScreen from '../CheckOut';
+import SignInScreen from '../SignIn';
+import SignUpScreen from '../SignUp';
 
 const HomeNavigator = createStackNavigator({
     Home: HomeScreen,
@@ -26,7 +29,7 @@ const HomeNavigator = createStackNavigator({
                 headerLeft: (
                     <Icon
                         name="md-menu"
-                        style={{ color: '#fff', marginLeft: 10 }}
+                        style={{ color: '#fff', marginLeft: 15 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -70,7 +73,7 @@ const DetailsNavigator = createStackNavigator({
 )
 
 const CartNavigator = createStackNavigator({
-    Home: CartScreen,
+    Cart: CartScreen,
 },
     {
         defaultNavigationOptions: ({ navigation }) => {
@@ -100,11 +103,106 @@ const CartNavigator = createStackNavigator({
     }
 )
 
+const CheckOutNavigator = createStackNavigator({
+    CheckOut: CheckOutScreen,
+},
+    {
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                headerStyle: {
+                    backgroundColor: '#3a9ad3'
+                },
+                headerTitle: 'Check Out',
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    flex: 1
+                },
+                headerLeft: (
+                    <Icon
+                        name="md-menu"
+                        style={{ color: '#fff', marginLeft: 10 }}
+                        onPress={() => navigation.openDrawer()}
+                    />
+                ),
+                headerRight: (
+                    <View />
+                )
+            }
+        }
+    }
+)
+
+const SignInNavigator = createStackNavigator({
+    SignIn: SignInScreen,
+},
+    {
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                headerStyle: {
+                    backgroundColor: '#3a9ad3'
+                },
+                headerTitle: 'Sign In',
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    flex: 1
+                },
+                headerLeft: (
+                    <Icon
+                        name="md-menu"
+                        style={{ color: '#fff', marginLeft: 10 }}
+                        onPress={() => navigation.openDrawer()}
+                    />
+                ),
+                headerRight: (
+                    <View />
+                )
+            }
+        }
+    }
+)
+
+const SignUpNavigator = createStackNavigator({
+    SignUp: SignUpScreen,
+},
+    {
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                headerStyle: {
+                    backgroundColor: '#3a9ad3'
+                },
+                headerTitle: 'Sign Up',
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    flex: 1
+                },
+                headerLeft: (
+                    <Icon
+                        name="md-menu"
+                        style={{ color: '#fff', marginLeft: 10 }}
+                        onPress={() => navigation.openDrawer()}
+                    />
+                ),
+                headerRight: (
+                    <View />
+                )
+            }
+        }
+    }
+)
 
 const DrawerNavigator = createDrawerNavigator({
     Home: HomeNavigator,
     Details: DetailsNavigator,
-    Cart: CartNavigator
+    Cart: CartNavigator,
+    CheckOut: CheckOutNavigator,
+    SignIn: SignInNavigator,
+    SignUp: SignUpNavigator
 });
 
 export default createAppContainer(DrawerNavigator);
