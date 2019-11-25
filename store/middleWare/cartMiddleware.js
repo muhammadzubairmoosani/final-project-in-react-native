@@ -9,11 +9,11 @@ export default class cartMiddleWare {
         return dispatch => dispatch(cartAction.removeItemFromCart(data));
     }
 
-    static goCart(data, itemQty) {
+    static goCart(id, itemQty) {
         return dispatch => {
             firebase.database().ref('Products').once('value')
                 .then(snapshot => {
-                    let arr = snapshot.val().filter(item => item.id === data);
+                    let arr = snapshot.val().filter(item => item.id === id);
                     arr[0].qty = itemQty ? itemQty : 1;
                     this.newArr.push(arr[0]);
                     dispatch(cartAction.addTocartInAction(arr));
