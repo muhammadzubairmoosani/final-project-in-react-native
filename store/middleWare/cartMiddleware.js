@@ -3,25 +3,23 @@ import cartAction from '../action/cartAction';
 
 export default class cartMiddleWare {
     static newArr = [];
-
     static removeItem(data) {
         this.newArr.splice(data, 1);
         return dispatch => dispatch(cartAction.removeItemFromCart(data));
     }
 
-    static goCart(id, itemQty) {
+    static goCart(data) {
         return dispatch => {
-            firebase.database().ref('Products').once('value')
-                .then(snapshot => {
-                    let arr = snapshot.val().filter(item => item.id === id);
-                    // arr[0].qty = itemQty ? itemQty : 1;
-                    // this.newArr.push(arr[0]);
-                    dispatch(cartAction.addTocartInAction(arr));
+            firebase
+                .database()
+                .ref('Products')
+                .on('value', snapshot => {
+                    let arr = snapshot.val().filter(item => item.id === data[0]);
+                    this.newArr.push(arr[0]);
+                    dispatch(cartAction.addTocartInAction(arr[0]));
                 })
-                .catch(err => console.log(err));
         }
     }
-
     static checkOut(data) {
         let dateNow = Date.now();
         let d = new Date();
@@ -36,14 +34,14 @@ export default class cartMiddleWare {
             orderList: this.newArr,
             total: total + 200,
             date: fullDate,
-            shipTo: data.userName,
+            shipTo: data.fullName,
             orderNumber: dateNow,
             status: 'Processing',
             city: data.city,
             email: data.email,
             phone: data.phone,
             address: data.address,
-            country: data.country,
+            country: data.country
         }
         return dispatch => {
             firebase.database().ref('Orders').child(data.userId).push(userInfo)
@@ -52,4 +50,3 @@ export default class cartMiddleWare {
         }
     }
 }
-

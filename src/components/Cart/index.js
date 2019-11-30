@@ -8,37 +8,40 @@ import {
 } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import cartMiddleware from '../../../store/middleWare/cartMiddleware';
 
 class Cart extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
-            items: props.items
+            cartItems: []
         }
     }
-
+    componentDidUpdate(prevProps) {
+        const { cartItems } = this.state;
+        const { items } = this.props;
+        if (prevProps.items !== items) {
+            cartItems.push(items);
+            this.setState({ cartItems: cartItems })
+        }
+    }
     _removeItem = index => {
-        let getValue = this.state.items;
+        let getValue = this.state.cartItems;
         getValue.splice(index, 1);
-        this.setState({
-            items: getValue
-        }, () => this.props.removeItemDispatch(index));
+        this.setState({ cartItems: getValue });
     };
-
     render() {
-        const { items } = this.state;
+        const { cartItems } = this.state;
         let total = 0;
         return (
             <ScrollView>
                 <View style={{ flex: 1, margin: 10 }}>
-                    {items.length ?
+                    {cartItems.length ?
                         <>
-                            {items.map((item, index) => {
+                            {cartItems.map((item, index) => {
                                 total += item.qty * item.price;
                                 return (
                                     <View key={item.id}>
-                                        <View style={{ alignSelf: 'center', marginTop: 15 }}>
+                                        <View style={{ alignSelf: 'center', marginTop: 15, borderWidth: 0.5, borderColor: '#999', borderRadius: 50, padding: 5 }}>
                                             <Thumbnail large source={{ uri: item.img }} />
                                         </View>
                                         <View style={{ marginTop: 10 }}>
@@ -51,7 +54,7 @@ class Cart extends React.Component {
                                             style={{ backgroundColor: '#d9534f', marginTop: 15, marginBottom: 15, alignSelf: 'center' }}
                                             onPress={() => this._removeItem(index)}
                                         >
-                                            <Text>Delete Item</Text>
+                                            <Text>Remove Item</Text>
                                             <Icon name='md-trash' />
                                         </Button>
                                         <View style={{ borderBottomColor: '#CCC', borderBottomWidth: 1, }} />
@@ -71,7 +74,7 @@ class Cart extends React.Component {
                             </Button>
                         </>
                         :
-                        <View style={{alignItems: 'center', marginTop: 50}}>
+                        <View style={{ alignItems: 'center', marginTop: 50 }}>
                             <Icon name='logo-dropbox' style={{ fontSize: 75, color: '#444' }} />
                             <Text style={{ fontWeight: 'bold', color: '#444' }}>Your Cart is Empty!</Text>
                         </View>
@@ -81,7 +84,6 @@ class Cart extends React.Component {
         );
     }
 }
-
 let styles = StyleSheet.create({
     btn: {
         flex: 1,
@@ -98,15 +100,9 @@ let styles = StyleSheet.create({
         marginLeft: 5
     }
 })
-
 const mapStateToProps = state => {
     return {
         items: state.cartReducer.cartItems
     };
 };
-const mapDispatchToProps = dispatch => {
-    return {
-        removeItemDispatch: (data) => dispatch(cartMiddleware.removeItem(data)),
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps)(Cart);

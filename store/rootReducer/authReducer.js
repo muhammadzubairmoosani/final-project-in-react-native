@@ -12,18 +12,23 @@ const initialState = {
     user: {},
     signIn: false,
     dataLoading: false,
+    message: ''
 }
 
 export default function authReducer(state = initialState, action) {
     switch (action.type) {
         case SIGNIN_SUCCESS:
-        case SIGNUP_SUCCESS:
+        // case SIGNUP_SUCCESS:
         case USER_STATUS:
             return {
                 ...state,
                 user: action.payload,
                 dataLoading: false,
                 signIn: true
+            }
+        case SIGNUP_SUCCESS:
+            return {
+                message: action.payload
             }
         case SIGNUP_FAILURE:
         case SIGNIN_FAILURE:

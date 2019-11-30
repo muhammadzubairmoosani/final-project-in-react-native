@@ -9,7 +9,7 @@ export default class authMiddleWare {
                 .auth()
                 .createUserWithEmailAndPassword(data.email, data.password)
                 .then(user => {
-                    dispatch(authAction.signUpSuccess(user));
+                    dispatch(authAction.signUpSuccess('Sign Up Successfully!'));
                     dispatch(authAction.loading(false));
                 })
                 .catch(error => {

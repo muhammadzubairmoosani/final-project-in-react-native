@@ -45,7 +45,7 @@ class DetailsScreen extends React.Component {
                     : itemDetail.length ?
                         <Container>
                             <Content>
-                                <Card style={{ flex: 0 }}>
+                                <Card>
                                     <CardItem>
                                         <Left>
                                             <Body>
@@ -56,7 +56,27 @@ class DetailsScreen extends React.Component {
                                     </CardItem>
                                     <CardItem>
                                         <Body>
-                                            <Image source={{ uri: itemDetail[0].img }} style={{ height: 200, width: 200, flex: 1 }} />
+                                            <View
+                                                style={{ width: '100%', borderWidth: 0.5, borderColor: '#999', borderRadius: 3, padding: 5 }}
+                                            >
+                                                <Image
+                                                    source={{ uri: itemDetail[0].img }}
+                                                    style={{ height: 200, width: '100%' }}
+                                                />
+                                            </View >
+                                            <View
+                                                style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', paddingTop: 5, paddingBottom: 18 }}
+                                            >
+                                                {itemDetail[0].thumbnail.map(imgUrl =>
+                                                    <View style={{ padding: 3, margin: 3, borderWidth: 0.5, borderColor: '#999', borderRadius: 3 }}>
+                                                        <Thumbnail square source={{ uri: imgUrl }} />
+                                                    </View>
+                                                )}
+                                            </View>
+                                            <Text
+                                                style={{ color: '#555', fontWeight: 'bold', fontSize: 20, marginBottom: 5 }}
+                                            >About This Product:
+                                            </Text>
                                             <Text>{itemDetail[0].product_detail}</Text>
                                         </Body>
                                     </CardItem>
@@ -70,7 +90,7 @@ class DetailsScreen extends React.Component {
                                         <Right>
                                             <Item floatingLabel>
                                                 <Label>Quantity</Label>
-                                                <Input onChangeText={(text) => this._onChange(text)} value={this.state.qty}/>
+                                                <Input onChangeText={(text) => this._onChange(text)} value={this.state.qty} />
                                             </Item>
                                         </Right>
                                     </CardItem>
@@ -94,16 +114,13 @@ class DetailsScreen extends React.Component {
         );
     }
 }
-
 const mapStateToProps = state => {
     return {
         itemDetail: state.productReducer.viewDetailItem,
         isLoading: state.search_form_loadingReducer.dataLoading
     }
 }
-
 const mapDispatchToProps = dispatch => ({
-    addToCartDispatch: (id, qty) => dispatch(cartMiddleware.goCart(Number(id), Number(qty)))
+    addToCartDispatch: (...data) => dispatch(cartMiddleware.goCart(data))
 })
-
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen)

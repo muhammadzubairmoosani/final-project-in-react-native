@@ -6,46 +6,57 @@ import authMiddleware from '../../../store/middleWare/authMiddleware';
 import { Alert } from 'react-native';
 
 class CheckOutScreen extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             city: '',
-            fullName: '',
             email: '',
             phone: '',
-            address: '',
+            userId: '',
             country: '',
-            province: ''
+            address: '',
+            province: '',
+            fullName: '',
+        }
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.user !== this.props.user) {
+            this.setState({ userId: this.props.user.uid })
         }
     }
     _onChange = (key, text) => this.setState({ [key]: text })
-
     _onSubmit() {
-        this.props.userStatusDispatch();
+        const { userStatusDispatch, user, checkOutDispatch } = this.props;
+        const { city, fullName, email, phone, province, address, country } = this.state;
+        userStatusDispatch();
         setTimeout(() => {
-            if (this.props.user) {
-                checkOutDispatch(this.state)
-                this.setState({
-                    city: '',
-                    fname: '',
-                    lname: '',
-                    email: '',
-                    phone: '',
-                    company: '',
-                    address: '',
-                    country: ''
-                })
+            if (user) {
+                if (city && fullName && email && phone && province && address && country) {
+                    checkOutDispatch(this.state)
+                    this.setState({
+                        city: '',
+                        fullName: '',
+                        email: '',
+                        phone: '',
+                        company: '',
+                        address: '',
+                        country: ''
+                    })
+                }
+                else {
+                    Alert.alert(
+                        'Alert',
+                        'Please Fill out all fields required.',
+                        [{ text: 'OK' }]
+                    )
+                }
             }
             else {
                 Alert.alert(
                     'Alert',
                     'Please Sign-in First Before Proceed to Order',
                     [
-                        {
-                            text: 'Cancel',
-                            // onPress: () => console.log('Cancel Pressed'),
-                            style: 'cancel',
-                        },
+                        { text: 'Cancel', style: 'cancel' },
                         { text: 'OK', onPress: () => this.props.navigation.navigate('SignIn') },
                     ],
                     { cancelable: false },
@@ -53,7 +64,6 @@ class CheckOutScreen extends Component {
             }
         }, 100)
     }
-
     render() {
         return (
             <Container>
@@ -73,24 +83,24 @@ class CheckOutScreen extends Component {
                         </Item>
                         <Item floatingLabel last>
                             <Label>Telephone</Label>
-                            <Input onChangeText={(text) => this._onChange('phone', text)} />
+                            <Input onChangeText={(text) => this._onChange('phone', text)} keyboardType='numeric' />
                         </Item>
                         <Item floatingLabel last>
                             <Label>City</Label>
-                            <Input onChangeText={(text) => this._onChange('City', text)} />
+                            <Input onChangeText={(text) => this._onChange('city', text)} />
                         </Item>
                         <Item floatingLabel last>
-                            <Label>City</Label>
-                            <Input onChangeText={(text) => this._onChange('Country', text)} />
+                            <Label>Country</Label>
+                            <Input onChangeText={(text) => this._onChange('country', text)} />
                         </Item>
                         <Item floatingLabel last>
                             <Label>State/Province</Label>
                             <Input onChangeText={(text) => this._onChange('province', text)} />
                         </Item>
-                        <Button 
-                        success 
-                        block onPress={() => this._onSubmit()} 
-                        style={{margin:10, marginTop:20, marginBottom:20}}
+                        <Button
+                            success
+                            block onPress={() => this._onSubmit()}
+                            style={{ margin: 10, marginTop: 20, marginBottom: 20 }}
                         >
                             <Text>Proceed To Order</Text>
                         </Button>
@@ -100,17 +110,16 @@ class CheckOutScreen extends Component {
         );
     }
 }
-
-function mapStateToProps(state) {
+const mapStateToProps = state => {
     return {
-        user: state.authReducer.user
+        user: state.authReducer.user,
+        message: state.cartReducer
     }
 }
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = dispatch => {
     return {
         checkOutDispatch: data => dispatch(cartMiddleWare.checkOut(data)),
         userStatusDispatch: () => dispatch(authMiddleware.isStatus())
     }
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(CheckOutScreen);

@@ -29,7 +29,7 @@ const HomeNavigator = createStackNavigator({
                 headerLeft: (
                     <Icon
                         name="md-menu"
-                        style={{ color: '#fff', marginLeft: 15 }}
+                        style={{ color: '#fff', marginLeft: 18 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -41,36 +41,6 @@ const HomeNavigator = createStackNavigator({
     }
 )
 
-const DetailsNavigator = createStackNavigator({
-    Details: DetailsScreen,
-},
-    {
-        defaultNavigationOptions: ({ navigation }) => {
-            return {
-                headerStyle: {
-                    backgroundColor: '#3a9ad3'
-                },
-                headerTitle: 'Details',
-                headerTintColor: '#fff',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    flex: 1
-                },
-                headerLeft: (
-                    <Icon
-                        name="md-menu"
-                        style={{ color: '#fff', marginLeft: 10 }}
-                        onPress={() => navigation.openDrawer()}
-                    />
-                ),
-                headerRight: (
-                    <View />
-                )
-            }
-        }
-    }
-)
 
 const CartNavigator = createStackNavigator({
     Cart: CartScreen,
@@ -91,7 +61,7 @@ const CartNavigator = createStackNavigator({
                 headerLeft: (
                     <Icon
                         name="md-menu"
-                        style={{ color: '#fff', marginLeft: 10 }}
+                        style={{ color: '#fff', marginLeft: 18 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -122,7 +92,7 @@ const CheckOutNavigator = createStackNavigator({
                 headerLeft: (
                     <Icon
                         name="md-menu"
-                        style={{ color: '#fff', marginLeft: 10 }}
+                        style={{ color: '#fff', marginLeft: 18 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -153,7 +123,7 @@ const SignInNavigator = createStackNavigator({
                 headerLeft: (
                     <Icon
                         name="md-menu"
-                        style={{ color: '#fff', marginLeft: 10 }}
+                        style={{ color: '#fff', marginLeft: 18 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -184,7 +154,7 @@ const SignUpNavigator = createStackNavigator({
                 headerLeft: (
                     <Icon
                         name="md-menu"
-                        style={{ color: '#fff', marginLeft: 10 }}
+                        style={{ color: '#fff', marginLeft: 18 }}
                         onPress={() => navigation.openDrawer()}
                     />
                 ),
@@ -195,6 +165,40 @@ const SignUpNavigator = createStackNavigator({
         }
     }
 )
+
+
+const DetailsNavigator = createStackNavigator(
+    {
+        Details: DetailsScreen,
+    },
+    {
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                headerStyle: {
+                    backgroundColor: '#3a9ad3'
+                },
+                headerTitle: 'Details',
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    flex: 1
+                },
+                headerLeft: (
+                    <Icon
+                        name="md-menu"
+                        style={{ color: '#fff', marginLeft: 18 }}
+                        onPress={() => navigation.openDrawer()}
+                    />
+                ),
+                headerRight: (
+                    <View />
+                )
+            }
+        }
+    }
+)
+
 
 const DrawerNavigator = createDrawerNavigator({
     Home: HomeNavigator,
