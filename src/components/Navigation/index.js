@@ -9,10 +9,13 @@ import CartScreen from '../Cart';
 import CheckOutScreen from '../CheckOut';
 import SignInScreen from '../SignIn';
 import SignUpScreen from '../SignUp';
+import ProfileScreen from '../Profile';
+import DrawerNavigates from './drawerNavigates';
 
-const HomeNavigator = createStackNavigator({
-    Home: HomeScreen,
-},
+const HomeNavigator = createStackNavigator(
+    {
+        Home: HomeScreen,
+    },
     {
         defaultNavigationOptions: ({ navigation }) => {
             return {
@@ -41,10 +44,10 @@ const HomeNavigator = createStackNavigator({
     }
 )
 
-
-const CartNavigator = createStackNavigator({
-    Cart: CartScreen,
-},
+const CartNavigator = createStackNavigator(
+    {
+        Cart: CartScreen,
+    },
     {
         defaultNavigationOptions: ({ navigation }) => {
             return {
@@ -73,9 +76,10 @@ const CartNavigator = createStackNavigator({
     }
 )
 
-const CheckOutNavigator = createStackNavigator({
-    CheckOut: CheckOutScreen,
-},
+const CheckOutNavigator = createStackNavigator(
+    {
+        CheckOut: CheckOutScreen,
+    },
     {
         defaultNavigationOptions: ({ navigation }) => {
             return {
@@ -104,9 +108,10 @@ const CheckOutNavigator = createStackNavigator({
     }
 )
 
-const SignInNavigator = createStackNavigator({
-    SignIn: SignInScreen,
-},
+const SignInNavigator = createStackNavigator(
+    {
+        SignIn: SignInScreen,
+    },
     {
         defaultNavigationOptions: ({ navigation }) => {
             return {
@@ -135,9 +140,10 @@ const SignInNavigator = createStackNavigator({
     }
 )
 
-const SignUpNavigator = createStackNavigator({
-    SignUp: SignUpScreen,
-},
+const SignUpNavigator = createStackNavigator(
+    {
+        SignUp: SignUpScreen,
+    },
     {
         defaultNavigationOptions: ({ navigation }) => {
             return {
@@ -165,7 +171,6 @@ const SignUpNavigator = createStackNavigator({
         }
     }
 )
-
 
 const DetailsNavigator = createStackNavigator(
     {
@@ -199,6 +204,37 @@ const DetailsNavigator = createStackNavigator(
     }
 )
 
+const ProfileNavigator = createStackNavigator(
+    {
+        Profile: ProfileScreen,
+    },
+    {
+        defaultNavigationOptions: ({ navigation }) => {
+            return {
+                headerStyle: {
+                    backgroundColor: '#3a9ad3'
+                },
+                headerTitle: 'Profile',
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    flex: 1
+                },
+                headerLeft: (
+                    <Icon
+                        name="md-menu"
+                        style={{ color: '#fff', marginLeft: 18 }}
+                        onPress={() => navigation.openDrawer()}
+                    />
+                ),
+                headerRight: (
+                    <View />
+                )
+            }
+        }
+    }
+)
 
 const DrawerNavigator = createDrawerNavigator({
     Home: HomeNavigator,
@@ -206,7 +242,12 @@ const DrawerNavigator = createDrawerNavigator({
     Cart: CartNavigator,
     CheckOut: CheckOutNavigator,
     SignIn: SignInNavigator,
-    SignUp: SignUpNavigator
-});
+    SignUp: SignUpNavigator,
+    Profile: ProfileNavigator
+},
+    {
+        contentComponent: DrawerNavigates
+    }
+);
 
 export default createAppContainer(DrawerNavigator);

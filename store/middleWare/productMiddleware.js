@@ -87,11 +87,13 @@ export default class productMiddleWare {
         return dispatch => {
             dispatch(productAction.loading(true));
             firebase.database().ref('Orders').on('value', snapshot => {
-                let uid = Object.keys(snapshot.val());
-                let arr = Object.values(snapshot.val())
-                    .filter((item, index) => index === uid.indexOf(data));
-                dispatch(productAction.loading(false));
-                dispatch(productAction.orders(Object.values(arr[0])));
+                if (snapshot) {
+                    let uid = Object.keys(snapshot.val());
+                    let arr = Object.values(snapshot.val())
+                        .filter((item, index) => index === uid.indexOf(data));
+                    dispatch(productAction.loading(false));
+                    dispatch(productAction.orders(Object.values(arr[0])));
+                }
             })
         }
     }

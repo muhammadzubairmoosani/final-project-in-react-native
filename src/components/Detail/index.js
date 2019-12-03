@@ -15,7 +15,8 @@ import {
     Right,
     Item,
     Label,
-    Input
+    Input,
+    Header
 } from 'native-base';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
@@ -49,8 +50,8 @@ class DetailsScreen extends React.Component {
                                     <CardItem>
                                         <Left>
                                             <Body>
-                                                <Text>{itemDetail[0].title}</Text>
-                                                <Text note>{itemDetail[0].brand_name}</Text>
+                                                <Text>Title : {itemDetail[0].title}</Text>
+                                                <Text note>Brand : {itemDetail[0].brand_name}</Text>
                                             </Body>
                                         </Left>
                                     </CardItem>

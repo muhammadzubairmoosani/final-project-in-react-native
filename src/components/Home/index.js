@@ -13,9 +13,10 @@ import {
     Left,
     Body,
     Icon,
-    Button,
+    Button
 } from 'native-base';
 import { Image, TouchableOpacity } from 'react-native';
+import DetailsScreen from '../Detail';
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -24,9 +25,13 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         this.props.getProductDispatch();
     }
+
     viewItemDetail(id) {
         this.props.viewDetailDispatch(id)
         this.props.navigation.navigate('Details')
+        console.log('hello')
+        console.warn(this.props.navigation)
+        // this.props.navigation.navigate('CheckOut')
     }
     render() {
         const { isLoading, productList } = this.props;
@@ -69,13 +74,15 @@ class HomeScreen extends React.Component {
                                 }
                             />
                         </View>
-                        <View style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 10, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}>
+                        <View
+                            style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 10, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}
+                        >
                             <Button iconLeft onPress={() => this._deckSwiper._root.swipeLeft()}>
                                 <Icon name="arrow-back" />
-                                <Text>Prev</Text>
+                                <Text>Left</Text>
                             </Button>
                             <Button iconRight onPress={() => this._deckSwiper._root.swipeRight()}>
-                                <Text>Next</Text>
+                                <Text>Right</Text>
                                 <Icon name="arrow-forward" />
                             </Button>
                         </View>

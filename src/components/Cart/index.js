@@ -8,6 +8,7 @@ import {
 } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import CheckOutScreen from '../CheckOut';
 
 class Cart extends React.Component {
     constructor() {
@@ -68,7 +69,7 @@ class Cart extends React.Component {
                             </View>
                             <Button
                                 style={styles.btn}
-                                onPress={() => this.props.navigation.navigate('CheckOut')}
+                                onPress={() => this.props.navigation.navigate(CheckOutScreen)}
                             >
                                 <Text>Check Out</Text>
                             </Button>

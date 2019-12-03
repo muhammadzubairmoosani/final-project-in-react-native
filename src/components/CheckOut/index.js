@@ -29,7 +29,8 @@ class CheckOutScreen extends Component {
         const { userStatusDispatch, user, checkOutDispatch } = this.props;
         const { city, fullName, email, phone, province, address, country } = this.state;
         userStatusDispatch();
-        setTimeout(() => {
+        // setTimeout(() => {
+            console.log(user)
             if (user) {
                 if (city && fullName && email && phone && province && address && country) {
                     checkOutDispatch(this.state)
@@ -62,7 +63,7 @@ class CheckOutScreen extends Component {
                     { cancelable: false },
                 );
             }
-        }, 100)
+        // }, 100)
     }
     render() {
         return (

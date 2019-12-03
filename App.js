@@ -6,10 +6,6 @@ import MyApp from './src/components/Navigation';
 
 export default class App extends React.Component {
   render() {
-    return (
-      <Provider store={store}>
-        <MyApp />
-      </Provider>
-    )
+    return <Provider store={store}><MyApp /></Provider>
   }
 }

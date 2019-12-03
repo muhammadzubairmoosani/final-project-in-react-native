@@ -55,9 +55,9 @@ export default class authMiddleWare {
             firebase
                 .auth()
                 .signOut()
-                .then(() => {
+                .then(res => {
+                    console.log(res)
                     dispatch(authAction.signOutSuccess());
-                    window.location.replace('/');
                     dispatch(authAction.loading(false));
                 }
                 )
