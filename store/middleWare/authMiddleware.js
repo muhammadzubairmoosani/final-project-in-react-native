@@ -9,7 +9,7 @@ export default class authMiddleWare {
                 .auth()
                 .createUserWithEmailAndPassword(data.email, data.password)
                 .then(user => {
-                    dispatch(authAction.signUpSuccess('Sign Up Successfully!'));
+                    dispatch(authAction.signUpSuccess(user));
                     dispatch(authAction.loading(false));
                 })
                 .catch(error => {
@@ -18,7 +18,6 @@ export default class authMiddleWare {
                 });
         }
     }
-
     static isStatus() {
         return dispatch => {
             dispatch(authAction.loading(true));
@@ -30,7 +29,6 @@ export default class authMiddleWare {
                 });
         }
     }
-
     static signIn(data) {
         return dispatch => {
             dispatch(authAction.loading(true));
@@ -48,7 +46,6 @@ export default class authMiddleWare {
                 })
         }
     }
-
     static signOut() {
         return dispatch => {
             dispatch(authAction.loading(true));

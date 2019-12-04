@@ -29,9 +29,7 @@ class HomeScreen extends React.Component {
     viewItemDetail(id) {
         this.props.viewDetailDispatch(id)
         this.props.navigation.navigate('Details')
-        console.log('hello')
-        console.warn(this.props.navigation)
-        // this.props.navigation.navigate('CheckOut')
+        // this.props.navigation.goBack('CheckOut')
     }
     render() {
         const { isLoading, productList } = this.props;

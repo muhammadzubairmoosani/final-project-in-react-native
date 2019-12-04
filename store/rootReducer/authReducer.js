@@ -10,7 +10,7 @@ import {
 
 const initialState = {
     user: {},
-    signIn: false,
+    // signIn: false,
     dataLoading: false,
     message: ''
 }
@@ -18,7 +18,7 @@ const initialState = {
 export default function authReducer(state = initialState, action) {
     switch (action.type) {
         case SIGNIN_SUCCESS:
-        // case SIGNUP_SUCCESS:
+        case SIGNUP_SUCCESS:
         case USER_STATUS:
             return {
                 ...state,
@@ -26,24 +26,19 @@ export default function authReducer(state = initialState, action) {
                 dataLoading: false,
                 signIn: true
             }
-        case SIGNUP_SUCCESS:
-            return {
-                message: action.payload
-            }
         case SIGNUP_FAILURE:
         case SIGNIN_FAILURE:
         case SIGNOUT_FAILURE:
-            alert(action.payload)
             return {
                 ...state,
                 dataLoading: false,
-                signIn: false
+                // signIn: false
             }
         case SIGNOUT_SUCCESS:
             return {
                 ...state,
                 dataLoading: false,
-                signIn: false
+                // signIn: false
             }
         default:
             return state

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, Form, Item, Input, Label, Button, Text } from 'native-base';
 import { connect } from 'react-redux';
 import authMiddleware from '../../../store/middleWare/authMiddleware';
+import { Alert } from 'react-native';
 class SignInScreen extends Component {
     constructor() {
         super();
@@ -13,9 +14,19 @@ class SignInScreen extends Component {
     _onChange = (key, text) => this.setState({ [key]: text });
     _onSubmit = () => {
         const { authReducer, signInDispatch, navigation } = this.props;
-        signInDispatch(this.state);
-        if (authReducer.user) {
-            navigation.navigate('CheckOut')
+        console.log(navigation.pop())
+        if (this.state.email && this.state.password) {
+            signInDispatch(this.state);
+            if (authReducer.user) {
+                navigation.goBack();
+            }
+        }
+        else {
+            Alert.alert(
+                'Alert',
+                'Please fill-up email and password fields required!',
+                [{ text: 'Ok' }]
+            )
         }
     };
     render() {
