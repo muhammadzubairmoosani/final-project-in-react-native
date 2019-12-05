@@ -23,10 +23,8 @@ export default class productMiddleWare {
 
     static getAllProducts() {
         return dispatch => {
-            dispatch(productAction.loading(true));
             firebase.database().ref('Products').on('value', snapshot => {
                 dispatch(productAction.allProducts(snapshot.val()));
-                dispatch(productAction.loading(false));
             })
         }
     }

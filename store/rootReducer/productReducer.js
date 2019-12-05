@@ -6,18 +6,20 @@ import {
     ORDER_DETAIL,
     APPLE_ITUNES,
     ALL_PRODUCTS,
-    SHIPPING_DETAIL
+    SHIPPING_DETAIL,
+    // LOADING
 } from '../constants.js';
 
 const initialState = {
     orders: [],
     ituneItem: [],
     watchItems: [],
-    ProductList: [],
+    productList: [],
     orderedItem: [],
     viewDetailItem: {},
     shippingDetail: {},
     allClientOrders: {},
+    // isLoading: false
 }
 
 export default function productReducer(state = initialState, action) {
@@ -27,10 +29,15 @@ export default function productReducer(state = initialState, action) {
                 ...state,
                 viewDetailItem: action.payload,
             }
+        // case LOADING:
+        //     return {
+        //         ...state,
+        //         isLoading: action.payload,
+        //     }
         case ALL_PRODUCTS:
             return {
                 ...state,
-                ProductList: action.payload,
+                productList: action.payload,
             }
         case APPLE_ITUNES:
             return {

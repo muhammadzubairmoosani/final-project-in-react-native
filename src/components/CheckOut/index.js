@@ -29,41 +29,38 @@ class CheckOutScreen extends Component {
         const { userStatusDispatch, user, checkOutDispatch } = this.props;
         const { city, fullName, email, phone, province, address, country } = this.state;
         userStatusDispatch();
-        // setTimeout(() => {
-            console.log(user)
-            if (user) {
-                if (city && fullName && email && phone && province && address && country) {
-                    checkOutDispatch(this.state)
-                    this.setState({
-                        city: '',
-                        fullName: '',
-                        email: '',
-                        phone: '',
-                        company: '',
-                        address: '',
-                        country: ''
-                    })
-                }
-                else {
-                    Alert.alert(
-                        'Alert',
-                        'Please Fill out all fields required.',
-                        [{ text: 'OK' }]
-                    )
-                }
+        if (user) {
+            if (city && fullName && email && phone && province && address && country) {
+                checkOutDispatch(this.state)
+                this.setState({
+                    city: '',
+                    fullName: '',
+                    email: '',
+                    phone: '',
+                    company: '',
+                    address: '',
+                    country: ''
+                })
             }
             else {
                 Alert.alert(
                     'Alert',
-                    'Please Sign-in First Before Proceed to Order',
-                    [
-                        { text: 'Cancel', style: 'cancel' },
-                        { text: 'OK', onPress: () => this.props.navigation.navigate('SignIn') },
-                    ],
-                    { cancelable: false },
-                );
+                    'Please Fill out all fields required.',
+                    [{ text: 'OK' }]
+                )
             }
-        // }, 100)
+        }
+        else {
+            Alert.alert(
+                'Alert',
+                'Please Sign-in First Before Proceed to Order',
+                [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'OK', onPress: () => this.props.navigation.navigate('SignIn') },
+                ],
+                { cancelable: false },
+            );
+        }
     }
     render() {
         return (

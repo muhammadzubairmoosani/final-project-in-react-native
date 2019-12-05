@@ -9,22 +9,22 @@ class DrawerNavigates extends React.Component {
     }
     render() {
         const { navigation, activeItemKey, authReducer, signOutDispatch } = this.props;
-        // const { routeName } = this.props.navigation.state.routes[0].routes[1].routeName
-        // let routeName = navigation.state.routes[0].routes[1].routeName
+        let routeName = [];
+        let boolean = [];
         if (navigation.state.routes[0].routes[1]) {
-            // let routeName = navigation.state.routes[0].routes[1].routeName;
-            // console.log('=======', routeName)
-            navigation.state.routes[0].routes.map(item => console.log(item.routeName))
+            routeName = navigation.state.routes[0].routes;
+            boolean = navigation.state.routes[0].isTransitioning
         }
-        // console.log('=======', routeName)
         return (
             <View >
                 <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    {/* <Text style={[styles.item, (activeItemKey == "Home") && styles.activeItem]} >Home</Text> */}
-                    <Text style={[styles.item, (navigation.state.routes[0].index === 'id-1575478157454-0') && styles.activeItem]} >Home</Text>
+                    <Text style={[styles.item, boolean && styles.activeItem]} >Home</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
-                    <Text style={[styles.item, (navigation.state.routes[0].index === 1) && styles.activeItem]}>Cart</Text>
+                    <Text style={[
+                        styles.item,
+                        (routeName.length && routeName[routeName.length - 1].routeName === 'Cart') && styles.activeItem
+                    ]}>Cart</Text>
                 </TouchableOpacity>
                 {authReducer.user ?
                     <>
@@ -32,12 +32,18 @@ class DrawerNavigates extends React.Component {
                             <Text style={styles.item}>Sign Out</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                            <Text style={[styles.item, (activeItemKey == "Profile") && styles.activeItem]}>Profile</Text>
+                            <Text style={[
+                                styles.item,
+                                (routeName.length && routeName[routeName.length - 1].routeName == "Profile") && styles.activeItem
+                            ]}>Profile</Text>
                         </TouchableOpacity>
                     </>
                     :
                     <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                        <Text style={[styles.item, (navigation.state.routes[0].index === 2) && styles.activeItem]}>Sign In</Text>
+                        <Text style={[
+                            styles.item,
+                            (routeName.length && routeName[routeName.length - 1].routeName === 'SignIn') && styles.activeItem
+                        ]}>Sign In</Text>
                     </TouchableOpacity>
                 }
             </View>

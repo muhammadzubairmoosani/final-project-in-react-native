@@ -11,34 +11,61 @@ import { connect } from 'react-redux';
 import CheckOutScreen from '../CheckOut';
 
 class Cart extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            cartItems: []
+            items: []
         }
+        // this.state.items.push(this.props.cartReducer.cartItems);
+        // this.setState({ items: this.state.items })
     }
-    componentDidUpdate(prevProps) {
-        const { cartItems } = this.state;
-        const { items } = this.props;
-        if (prevProps.items !== items) {
-            cartItems.push(items);
-            this.setState({ cartItems: cartItems })
-        }
-    }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     if (prevState.items !== nextProps.cartReducer.cartItems) {
+    //         const { cartItems } = nextProps.cartReducer;
+    //         //    console.log('^^^^^^^^^',prevState.items.push(nextProps.cartReducer.cartItems))
+    //         console.log(cartItems)
+
+    //         return {
+    //             items: [{ ...prevState.items, cartItems }]
+    //         }
+    //     }
+    // }
+    // componentDidUpdate(prevProps, prevState) {
+    //     console.log('prevProps', prevProps)
+    //     console.log('prevState', prevState)
+    // }
+    // componentDidUpdate(prevProps) {
+    //     const { items } = this.state;
+    //     const { cartReducer } = this.props;
+    //     if (prevProps.cartReducer !== this.props.cartReducer) {
+    //         items.push(cartReducer)
+    //         this.setState({ items: items })
+    //     }
+    // }
+    // componentDidUpdate(prevProps) {
+    //     const { items } = this.state;
+    //     const { cartReducer } = this.props;
+    //     console.log
+    //     if (prevProps.cartReducer.cartItems !== cartReducer.cartItems) {
+    //         items.push(cartReducer.cartItems);
+    //         this.setState({ items: items })
+    //     }
+    // }
     _removeItem = index => {
-        let getValue = this.state.cartItems;
+        let getValue = this.state.items;
         getValue.splice(index, 1);
-        this.setState({ cartItems: getValue });
+        this.setState({ items: getValue });
     };
     render() {
-        const { cartItems } = this.state;
+        const { items } = this.state;
         let total = 0;
+        // console.log('..', items.length)
         return (
             <ScrollView>
                 <View style={{ flex: 1, margin: 10 }}>
-                    {cartItems.length ?
+                    {items.length ?
                         <>
-                            {cartItems.map((item, index) => {
+                            {items.map((item, index) => {
                                 total += item.qty * item.price;
                                 return (
                                     <View key={item.id}>
@@ -102,8 +129,11 @@ let styles = StyleSheet.create({
     }
 })
 const mapStateToProps = state => {
+    console.log('=======', state.cartReducer)
     return {
-        items: state.cartReducer.cartItems
+        // items: state.cartReducer.cartItems
+        // cartReducer: state.cartReducer
+        cartReducer: state.cartReducer.cartItems
     };
 };
 export default connect(mapStateToProps)(Cart);

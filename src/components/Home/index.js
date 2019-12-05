@@ -16,7 +16,6 @@ import {
     Button
 } from 'native-base';
 import { Image, TouchableOpacity } from 'react-native';
-import DetailsScreen from '../Detail';
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -25,24 +24,20 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         this.props.getProductDispatch();
     }
-
     viewItemDetail(id) {
         this.props.viewDetailDispatch(id)
         this.props.navigation.navigate('Details')
-        // this.props.navigation.goBack('CheckOut')
     }
     render() {
-        const { isLoading, productList } = this.props;
+        const { reducer } = this.props;
         return (
-            <>
-                {isLoading ?
-                    <Spinner color='blue' />
-                    :
-                    <Container>
+            <Container>
+                {
+                    reducer.productList.length ?
                         <View>
                             <DeckSwiper
                                 ref={(c) => this._deckSwiper = c}
-                                dataSource={productList}
+                                dataSource={reducer.productList}
                                 renderEmpty={() =>
                                     <View style={{ alignSelf: "center" }}>
                                         <Text>Over</Text>
@@ -72,36 +67,31 @@ class HomeScreen extends React.Component {
                                 }
                             />
                         </View>
-                        <View
-                            style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 10, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}
-                        >
-                            <Button iconLeft onPress={() => this._deckSwiper._root.swipeLeft()}>
-                                <Icon name="arrow-back" />
-                                <Text>Left</Text>
-                            </Button>
-                            <Button iconRight onPress={() => this._deckSwiper._root.swipeRight()}>
-                                <Text>Right</Text>
-                                <Icon name="arrow-forward" />
-                            </Button>
-                        </View>
-                    </Container>
+                        : <Spinner color='blue' />
                 }
-            </>
+                <View
+                    style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 10, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}
+                >
+                    <Button iconLeft onPress={() => this._deckSwiper._root.swipeLeft()}>
+                        <Icon name="arrow-back" />
+                        <Text>Left</Text>
+                    </Button>
+                    <Button iconRight onPress={() => this._deckSwiper._root.swipeRight()}>
+                        <Text>Right</Text>
+                        <Icon name="arrow-forward" />
+                    </Button>
+                </View>
+            </Container>
         )
     }
 };
-
 const mapStateToProps = state => {
     return {
-        productList: state.productReducer.ProductList,
-        // searchKey: state.search_form_loadingReducer.searchKey,
-        isLoading: state.search_form_loadingReducer.dataLoading
+        reducer: state.productReducer,
     }
 }
-
 const mapDispatchToProps = dispatch => ({
     getProductDispatch: () => dispatch(productMiddleware.getAllProducts()),
     viewDetailDispatch: id => dispatch(productMiddleware.viewProductDetail(Number(id)))
 })
-
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
