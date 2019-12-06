@@ -5,7 +5,8 @@ import {
 
 const initialState = {
     cartItems: {},
-    message: ''
+    message: '',
+    array: []
 }
 
 export default function cartReducer(state = initialState, action) {
@@ -19,6 +20,12 @@ export default function cartReducer(state = initialState, action) {
             return {
                 ...state,
                 message: action.payload
+            }
+        }
+        case 'NEW_ARRAY': {
+            return {
+                ...state,
+                array: action.payload
             }
         }
         default:

@@ -8,7 +8,7 @@ import {
 } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import CheckOutScreen from '../CheckOut';
+import cartMiddleware from '../../../store/middleWare/cartMiddleware';
 
 class Cart extends React.Component {
     constructor(props) {
@@ -16,50 +16,20 @@ class Cart extends React.Component {
         this.state = {
             items: []
         }
-        // this.state.items.push(this.props.cartReducer.cartItems);
-        // this.setState({ items: this.state.items })
     }
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     if (prevState.items !== nextProps.cartReducer.cartItems) {
-    //         const { cartItems } = nextProps.cartReducer;
-    //         //    console.log('^^^^^^^^^',prevState.items.push(nextProps.cartReducer.cartItems))
-    //         console.log(cartItems)
-
-    //         return {
-    //             items: [{ ...prevState.items, cartItems }]
-    //         }
-    //     }
-    // }
-    // componentDidUpdate(prevProps, prevState) {
-    //     console.log('prevProps', prevProps)
-    //     console.log('prevState', prevState)
-    // }
-    // componentDidUpdate(prevProps) {
-    //     const { items } = this.state;
-    //     const { cartReducer } = this.props;
-    //     if (prevProps.cartReducer !== this.props.cartReducer) {
-    //         items.push(cartReducer)
-    //         this.setState({ items: items })
-    //     }
-    // }
-    // componentDidUpdate(prevProps) {
-    //     const { items } = this.state;
-    //     const { cartReducer } = this.props;
-    //     console.log
-    //     if (prevProps.cartReducer.cartItems !== cartReducer.cartItems) {
-    //         items.push(cartReducer.cartItems);
-    //         this.setState({ items: items })
-    //     }
-    // }
+    componentDidMount() {
+        this.setState({ items: this.props.items })
+    }
     _removeItem = index => {
         let getValue = this.state.items;
         getValue.splice(index, 1);
-        this.setState({ items: getValue });
+        this.setState({
+            items: getValue
+        }, () => this.props.removeItemDispatch(this.state.items));
     };
     render() {
-        const { items } = this.state;
+        const { items } = this.state
         let total = 0;
-        // console.log('..', items.length)
         return (
             <ScrollView>
                 <View style={{ flex: 1, margin: 10 }}>
@@ -96,7 +66,7 @@ class Cart extends React.Component {
                             </View>
                             <Button
                                 style={styles.btn}
-                                onPress={() => this.props.navigation.navigate(CheckOutScreen)}
+                                onPress={() => this.props.navigation.navigate('CheckOut')}
                             >
                                 <Text>Check Out</Text>
                             </Button>
@@ -129,11 +99,13 @@ let styles = StyleSheet.create({
     }
 })
 const mapStateToProps = state => {
-    console.log('=======', state.cartReducer)
     return {
-        // items: state.cartReducer.cartItems
-        // cartReducer: state.cartReducer
-        cartReducer: state.cartReducer.cartItems
+        items: state.cartReducer.array
     };
 };
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = dispatch => {
+    return {
+        removeItemDispatch: data => dispatch(cartMiddleware.removeItem(data))
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

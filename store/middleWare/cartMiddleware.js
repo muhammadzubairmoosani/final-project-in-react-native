@@ -4,10 +4,10 @@ import cartAction from '../action/cartAction';
 export default class cartMiddleWare {
     static newArr = [];
     static removeItem(data) {
-        this.newArr.splice(data, 1);
-        return dispatch => dispatch(cartAction.removeItemFromCart(data));
+        return dispatch => {
+            this.newArr = data
+        }
     }
-
     static goCart(data) {
         return dispatch => {
             firebase
@@ -16,7 +16,7 @@ export default class cartMiddleWare {
                 .on('value', snapshot => {
                     let arr = snapshot.val().filter(item => item.id === data[0]);
                     this.newArr.push(arr[0]);
-                    dispatch(cartAction.addTocartInAction(arr[0]));
+                    dispatch(cartAction.sendArray(this.newArr))
                 })
         }
     }

@@ -18,7 +18,7 @@ import {
     Input,
     Header
 } from 'native-base';
-import { Image , TouchableOpacity} from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import cartMiddleware from '../../../store/middleWare/cartMiddleware';
 
@@ -29,7 +29,8 @@ class DetailsScreen extends React.Component {
     constructor() {
         super();
         this.state = {
-            qty: "1",index:0
+            qty: "1",
+            index: 0
         }
     }
     _onChange = text => this.setState({ qty: text });
@@ -57,15 +58,17 @@ class DetailsScreen extends React.Component {
                                     </CardItem>
                                     <CardItem>
                                         <Body>
-                                           {this.state.index ? <View
+                                            {/* {this.state.index ?  */}
+                                            {/* <View
                                                 style={{ width: '100%', borderWidth: 0.5, borderColor: '#999', borderRadius: 3, padding: 5 }}
                                             >
                                                 <Image
                                                     source={{ uri: itemDetail[0].img }}
                                                     style={{ height: 200, width: '100%' }}
                                                 />
-                                            </View >:
-                                          
+                                            </View > 
+                                            : */}
+
                                             <View
                                                 style={{ width: '100%', borderWidth: 0.5, borderColor: '#999', borderRadius: 3, padding: 5 }}
                                             >
@@ -73,13 +76,17 @@ class DetailsScreen extends React.Component {
                                                     source={{ uri: itemDetail[0].thumbnail[this.state.index] }}
                                                     style={{ height: 200, width: '100%' }}
                                                 />
-                                            </View >}
+                                            </View >
+                                            {/* } */}
                                             {/* --------------------------- */}
                                             <View
                                                 style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', paddingTop: 5, paddingBottom: 18 }}
                                             >
-                                                {itemDetail[0].thumbnail.map((imgUrl,key) =>
-                                                    <TouchableOpacity style={{ padding: 3, margin: 3, borderWidth: 0.5, borderColor: '#999', borderRadius: 3 }} onPress={()=>this.setState({index:key})} >
+                                                {itemDetail[0].thumbnail.map((imgUrl, key) =>
+                                                    <TouchableOpacity
+                                                        style={{ padding: 3, margin: 3, borderWidth: 0.5, borderColor: '#999', borderRadius: 3 }}
+                                                        onPress={() => this.setState({ index: key })}
+                                                    >
                                                         <Thumbnail square source={{ uri: imgUrl }} />
                                                     </TouchableOpacity>
                                                 )}
