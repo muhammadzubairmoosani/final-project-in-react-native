@@ -54,7 +54,7 @@ const mainNavigator = createStackNavigator(
         Profile: {
             screen: ProfileScreen,
             navigationOptions: {
-                headerTitle: 'Sign Up'
+                headerTitle: 'Profile'
             },
         },
     },

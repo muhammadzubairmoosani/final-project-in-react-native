@@ -5,13 +5,11 @@ import {
     SIGNIN_SUCCESS,
     SIGNIN_FAILURE,
     SIGNOUT_FAILURE,
-    SIGNOUT_SUCCESS
+    // SIGNOUT_SUCCESS
 } from '../constants.js';
 
 const initialState = {
     user: {},
-    // signIn: false,
-    dataLoading: false,
     message: ''
 }
 
@@ -23,23 +21,18 @@ export default function authReducer(state = initialState, action) {
             return {
                 ...state,
                 user: action.payload,
-                dataLoading: false,
-                signIn: true
             }
         case SIGNUP_FAILURE:
         case SIGNIN_FAILURE:
         case SIGNOUT_FAILURE:
             return {
                 ...state,
-                dataLoading: false,
-                // signIn: false
+                message: action.payload
             }
-        case SIGNOUT_SUCCESS:
-            return {
-                ...state,
-                dataLoading: false,
-                // signIn: false
-            }
+        // case SIGNOUT_SUCCESS:
+        //     return {
+        //         ...state,
+        //     }
         default:
             return state
     }

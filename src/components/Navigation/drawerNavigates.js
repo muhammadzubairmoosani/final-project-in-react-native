@@ -7,8 +7,17 @@ class DrawerNavigates extends React.Component {
     componentDidMount() {
         this.props.isStatusDispatch()
     }
+    _signOut() {
+        const { signOutDispatch, authReducer, navigation } = this.props;
+        signOutDispatch()
+        setTimeout(() => {
+            if (authReducer.user) {
+                navigation.navigate('Home')
+            }
+        }, 2000);
+    }
     render() {
-        const { navigation, activeItemKey, authReducer, signOutDispatch } = this.props;
+        const { navigation, authReducer } = this.props;
         let routeName = [];
         let boolean = [];
         if (navigation.state.routes[0].routes[1]) {
@@ -28,7 +37,7 @@ class DrawerNavigates extends React.Component {
                 </TouchableOpacity>
                 {authReducer.user ?
                     <>
-                        <TouchableOpacity onPress={() => signOutDispatch()}>
+                        <TouchableOpacity onPress={() => this._signOut()}>
                             <Text style={styles.item}>Sign Out</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>

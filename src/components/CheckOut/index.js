@@ -18,10 +18,13 @@ class CheckOutScreen extends Component {
             province: '',
             fullName: '',
         }
+        // this.props.user && this.setState({ userId: this.props.user.uid })
     }
     componentDidUpdate(prevProps) {
         if (prevProps.user !== this.props.user) {
-            this.setState({ userId: this.props.user.uid })
+            console.log('prevProps', prevProps.user)
+            console.log('this.props', this.props.user)
+            // this.setState({ userId: this.props.user.uid })
         }
     }
     _onChange = (key, text) => this.setState({ [key]: text })
@@ -30,25 +33,25 @@ class CheckOutScreen extends Component {
         const { city, fullName, email, phone, province, address, country } = this.state;
         userStatusDispatch();
         if (user) {
-            if (city && fullName && email && phone && province && address && country) {
-                checkOutDispatch(this.state)
-                this.setState({
-                    city: '',
-                    fullName: '',
-                    email: '',
-                    phone: '',
-                    company: '',
-                    address: '',
-                    country: ''
-                })
-            }
-            else {
-                Alert.alert(
-                    'Alert',
-                    'Please Fill out all fields required.',
-                    [{ text: 'OK' }]
-                )
-            }
+            // if (city && fullName && email && phone && province && address && country) {
+            checkOutDispatch(this.state)
+            this.setState({
+                city: '',
+                email: '',
+                phone: '',
+                country: '',
+                address: '',
+                province: '',
+                fullName: ''
+            })
+            // }
+            // else {
+            //     Alert.alert(
+            //         'Alert',
+            //         'Please Fill out all fields required.',
+            //         [{ text: 'OK' }]
+            //     )
+            // }
         }
         else {
             Alert.alert(
@@ -63,6 +66,7 @@ class CheckOutScreen extends Component {
         }
     }
     render() {
+        console.log(this.state.userId)
         return (
             <Container>
                 <Content>
@@ -116,7 +120,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        checkOutDispatch: data => dispatch(cartMiddleWare.checkOut(data)),
+        // checkOutDispatch: data => dispatch(cartMiddleWare.checkOut(data)),
+        checkOutDispatch: data => console.log(data),
         userStatusDispatch: () => dispatch(authMiddleware.isStatus())
     }
 }

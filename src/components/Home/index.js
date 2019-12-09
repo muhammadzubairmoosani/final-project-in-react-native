@@ -48,7 +48,7 @@ class HomeScreen extends React.Component {
                                         <CardItem>
                                             <Left>
                                                 <TouchableOpacity onPress={() => this.viewItemDetail(item.id)}>
-                                                    <Thumbnail source={{ uri: item.thumbnail ? item.thumbnail[0] : item.img }} />
+                                                    <Thumbnail source={{ uri: item.thumbnail[1] }} />
                                                 </TouchableOpacity>
                                                 <Body>
                                                     <TouchableOpacity onPress={() => this.viewItemDetail(item.id)}>
@@ -60,7 +60,7 @@ class HomeScreen extends React.Component {
                                         </CardItem>
                                         <TouchableOpacity onPress={() => this.viewItemDetail(item.id)}>
                                             <CardItem cardBody>
-                                                <Image style={{ height: 300, flex: 1 }} source={{ uri: item.img }} />
+                                                <Image style={{ height: 300, flex: 1 }} source={{ uri: item.thumbnail[0] }} />
                                             </CardItem>
                                         </TouchableOpacity>
                                     </Card>

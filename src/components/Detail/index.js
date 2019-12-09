@@ -16,7 +16,6 @@ import {
     Item,
     Label,
     Input,
-    Header
 } from 'native-base';
 import { Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
@@ -58,17 +57,6 @@ class DetailsScreen extends React.Component {
                                     </CardItem>
                                     <CardItem>
                                         <Body>
-                                            {/* {this.state.index ?  */}
-                                            {/* <View
-                                                style={{ width: '100%', borderWidth: 0.5, borderColor: '#999', borderRadius: 3, padding: 5 }}
-                                            >
-                                                <Image
-                                                    source={{ uri: itemDetail[0].img }}
-                                                    style={{ height: 200, width: '100%' }}
-                                                />
-                                            </View > 
-                                            : */}
-
                                             <View
                                                 style={{ width: '100%', borderWidth: 0.5, borderColor: '#999', borderRadius: 3, padding: 5 }}
                                             >
@@ -77,8 +65,6 @@ class DetailsScreen extends React.Component {
                                                     style={{ height: 200, width: '100%' }}
                                                 />
                                             </View >
-                                            {/* } */}
-                                            {/* --------------------------- */}
                                             <View
                                                 style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', paddingTop: 5, paddingBottom: 18 }}
                                             >
@@ -101,8 +87,8 @@ class DetailsScreen extends React.Component {
                                     <CardItem>
                                         <Left>
                                             <Button transparent textStyle={{ color: '#87838B' }}>
-                                                <Icon name="md-cash" />
-                                                <Text>Rs. {itemDetail[0].price}</Text>
+                                                <Icon style={{ fontSize: 18 }} name="md-cash" />
+                                                <Text style={{ fontSize: 15 }}>Rs.{itemDetail[0].price}</Text>
                                             </Button>
                                         </Left>
                                         <Right>
@@ -113,20 +99,18 @@ class DetailsScreen extends React.Component {
                                         </Right>
                                     </CardItem>
                                     <View style={{ flexDirection: "row", flex: 1, justifyContent: 'space-between', padding: 15 }}>
-                                        <Button iconLeft info onPress={() => this.props.navigation.navigate('Home')}>
-                                            <Icon name="arrow-back" />
-                                            <Text>Back</Text>
-                                        </Button>
-                                        <Button iconRight onPress={() => addToCartDispatch(itemDetail[0].id, this.state.qty)}>
+                                        <Button
+                                            onPress={() => addToCartDispatch(itemDetail[0].id, this.state.qty)}
+                                            style={{ width: '100%', justifyContent: 'center', borderRadius: 3 }}
+                                        >
                                             <Text>Add to Cart</Text>
                                             <Icon name="md-cart" />
                                         </Button>
                                     </View>
-
                                 </Card>
                             </Content>
                         </Container>
-                        : null
+                        : <Spinner color='blue' />
                 }
             </>
         );
@@ -140,6 +124,5 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => ({
     addToCartDispatch: (...data) => dispatch(cartMiddleware.goCart(data))
-    // addToCartDispatch: (...data) => console.log('==========')
 })
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen)

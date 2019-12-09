@@ -14,9 +14,9 @@ export const SHIPPING_DETAIL = 'SHIPPING_DETAIL';
 export const WATCH_ITEMS = 'WATCH_ITEMS';
 export const APPLE_ITUNES = 'APPLE_ITUNES';
 
-export const MESSAGE = 'MESSAGE';
 export const ADD_TO_CART = 'ADD_TO_CART';
 
+export const MESSAGE = 'MESSAGE';
 export const USER_STATUS = 'USER_STATUS';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';

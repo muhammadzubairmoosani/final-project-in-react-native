@@ -1,18 +1,18 @@
 import {
-    LOADING,
+    // LOADING,
     USER_STATUS,
     SIGNUP_SUCCESS,
     SIGNUP_FAILURE,
     SIGNIN_SUCCESS,
     SIGNIN_FAILURE,
-    SIGNOUT_SUCCESS,
+    // SIGNOUT_SUCCESS,
     SIGNOUT_FAILURE
 } from '../constants.js';
 
 export default class authAction {
-    static loading(data) {
-        return { type: LOADING, payload: data }
-    }
+    // static loading(data) {
+    //     return { type: LOADING, payload: data }
+    // }
 
     static signUpSuccess(data) {
         return { type: SIGNUP_SUCCESS, payload: data }
@@ -30,9 +30,9 @@ export default class authAction {
         return { type: SIGNIN_FAILURE, payload: data }
     }
 
-    static signOutSuccess() {
-        return { type: SIGNOUT_SUCCESS }
-    }
+    // static signOutSuccess(data) {
+    //     return { type: SIGNOUT_SUCCESS, payload: data }
+    // }
 
     static signOutFailure(data) {
         return { type: SIGNOUT_FAILURE, payload: data }

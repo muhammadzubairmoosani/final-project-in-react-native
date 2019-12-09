@@ -40,7 +40,7 @@ class Cart extends React.Component {
                                 return (
                                     <View key={item.id}>
                                         <View style={{ alignSelf: 'center', marginTop: 15, borderWidth: 0.5, borderColor: '#999', borderRadius: 50, padding: 5 }}>
-                                            <Thumbnail large source={{ uri: item.img }} />
+                                            <Thumbnail large source={{ uri: item.thumbnail[0] }} />
                                         </View>
                                         <View style={{ marginTop: 10 }}>
                                             <Text>Title: {item.title}</Text>
