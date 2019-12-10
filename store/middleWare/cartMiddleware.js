@@ -45,7 +45,7 @@ export default class cartMiddleWare {
         }
         return dispatch => {
             firebase.database().ref('Orders').child(data.userId).push(userInfo)
-                .then(() => dispatch(cartAction._message('data Successfully saved')))
+                .then(() => dispatch(cartAction.cleanCart({})))
                 .catch(err => console.log(err))
         }
     }

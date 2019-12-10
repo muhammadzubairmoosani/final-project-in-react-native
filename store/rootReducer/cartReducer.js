@@ -1,6 +1,7 @@
 import {
     ADD_TO_CART,
-    MESSAGE
+    MESSAGE,
+    CLEAN_CART
 } from '../constants.js';
 
 const initialState = {
@@ -16,10 +17,16 @@ export default function cartReducer(state = initialState, action) {
                 ...state,
                 cartItems: action.payload
             }
-        case MESSAGE: {
+        // case MESSAGE: {
+        //     return {
+        //         ...state,
+        //         message: action.payload
+        //     }
+        // }
+        case CLEAN_CART: {
             return {
                 ...state,
-                message: action.payload
+                cartItems: action.payload
             }
         }
         case 'NEW_ARRAY': {

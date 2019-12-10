@@ -15,6 +15,7 @@ export const WATCH_ITEMS = 'WATCH_ITEMS';
 export const APPLE_ITUNES = 'APPLE_ITUNES';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
+export const CLEAN_CART = 'CLEAN_CART';
 
 export const MESSAGE = 'MESSAGE';
 export const USER_STATUS = 'USER_STATUS';

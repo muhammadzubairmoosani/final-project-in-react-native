@@ -12,19 +12,11 @@ class CheckOutScreen extends Component {
             city: '',
             email: '',
             phone: '',
-            userId: '',
+            userId: this.props.user && this.props.user.uid,
             country: '',
             address: '',
             province: '',
             fullName: '',
-        }
-        // this.props.user && this.setState({ userId: this.props.user.uid })
-    }
-    componentDidUpdate(prevProps) {
-        if (prevProps.user !== this.props.user) {
-            console.log('prevProps', prevProps.user)
-            console.log('this.props', this.props.user)
-            // this.setState({ userId: this.props.user.uid })
         }
     }
     _onChange = (key, text) => this.setState({ [key]: text })
@@ -32,9 +24,10 @@ class CheckOutScreen extends Component {
         const { userStatusDispatch, user, checkOutDispatch } = this.props;
         const { city, fullName, email, phone, province, address, country } = this.state;
         userStatusDispatch();
+        // if (city && fullName && email && phone && province && address && country) {
         if (user) {
-            // if (city && fullName && email && phone && province && address && country) {
             checkOutDispatch(this.state)
+            console.log(this.state)
             this.setState({
                 city: '',
                 email: '',
@@ -44,14 +37,6 @@ class CheckOutScreen extends Component {
                 province: '',
                 fullName: ''
             })
-            // }
-            // else {
-            //     Alert.alert(
-            //         'Alert',
-            //         'Please Fill out all fields required.',
-            //         [{ text: 'OK' }]
-            //     )
-            // }
         }
         else {
             Alert.alert(
@@ -65,8 +50,17 @@ class CheckOutScreen extends Component {
             );
         }
     }
+    //     else {
+    //         Alert.alert(
+    //             'Alert',
+    //             'Please Fill out all fields required.',
+    //             [{ text: 'OK' }]
+    //         )
+    //     }
+    // }
     render() {
-        console.log(this.state.userId)
+        console.log(this.props.user && this.props.user.uid)
+        // console.log('hlkasdjfklajsdf')
         return (
             <Container>
                 <Content>
@@ -120,8 +114,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        // checkOutDispatch: data => dispatch(cartMiddleWare.checkOut(data)),
-        checkOutDispatch: data => console.log(data),
+        checkOutDispatch: data => dispatch(cartMiddleWare.checkOut(data)),
+        // checkOutDispatch: data => console.log(data),
         userStatusDispatch: () => dispatch(authMiddleware.isStatus())
     }
 }
