@@ -17,7 +17,6 @@ class OrderHistoryScreen extends Component {
     render() {
         const { isLoading, orders, user } = this.props;
         const { show, id } = this.state;
-        console.log('=======', orders)
         let total = 0;
         return (
             <ScrollView style={styles.container}>
