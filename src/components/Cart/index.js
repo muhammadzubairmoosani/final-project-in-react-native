@@ -66,7 +66,7 @@ class Cart extends React.Component {
                             </View>
                             <Button
                                 style={styles.btn}
-                                onPress={() => this.props.navigation.navigate('CheckOut')}
+                                onPress={() => this.props.navigation.navigate('checkOut')}
                             >
                                 <Text>Check Out</Text>
                             </Button>

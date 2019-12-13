@@ -9,52 +9,52 @@ import CartScreen from '../Cart';
 import CheckOutScreen from '../CheckOut';
 import SignInScreen from '../SignIn';
 import SignUpScreen from '../SignUp';
-import ProfileScreen from '../Profile';
+import OrderHistoryScreen from '../Profile';
 import DrawerNavigates from './drawerNavigates';
 
 const mainNavigator = createStackNavigator(
     {
-        Home: {
+        home: {
             screen: HomeScreen,
             navigationOptions: {
                 headerTitle: 'Home'
             },
         },
-        Details: {
+        details: {
             screen: DetailsScreen,
             navigationOptions: {
                 headerTitle: 'Product Details'
             },
         },
 
-        Cart: {
+        cart: {
             screen: CartScreen,
             navigationOptions: {
                 headerTitle: 'Cart'
             }
         },
-        CheckOut: {
+        checkOut: {
             screen: CheckOutScreen,
             navigationOptions: {
                 headerTitle: 'Check Out'
             },
         },
-        SignIn: {
+        signIn: {
             screen: SignInScreen,
             navigationOptions: {
                 headerTitle: 'Sign In'
             },
         },
-        SignUp: {
+        signUp: {
             screen: SignUpScreen,
             navigationOptions: {
                 headerTitle: 'Sign Up'
             },
         },
-        Profile: {
-            screen: ProfileScreen,
+        orderHistory: {
+            screen: OrderHistoryScreen,
             navigationOptions: {
-                headerTitle: 'Profile'
+                headerTitle: 'Order History'
             },
         },
     },

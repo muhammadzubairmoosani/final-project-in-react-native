@@ -12,9 +12,13 @@ class DrawerNavigates extends React.Component {
         signOutDispatch()
         setTimeout(() => {
             if (authReducer.user) {
-                navigation.navigate('Home')
+                navigation.navigate('home')
             }
         }, 2000);
+    }
+    _onClick(route) {
+        this.props.navigation.closeDrawer();
+        this.props.navigation.navigate(route);
     }
     render() {
         const { navigation, authReducer } = this.props;
@@ -26,13 +30,13 @@ class DrawerNavigates extends React.Component {
         }
         return (
             <View >
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity onPress={() => this._onClick('home')}>
                     <Text style={[styles.item, boolean && styles.activeItem]} >Home</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+                <TouchableOpacity onPress={() => this._onClick('cart')}>
                     <Text style={[
                         styles.item,
-                        (routeName.length && routeName[routeName.length - 1].routeName === 'Cart') && styles.activeItem
+                        (routeName.length && routeName[routeName.length - 1].routeName === 'cart') && styles.activeItem
                     ]}>Cart</Text>
                 </TouchableOpacity>
                 {authReducer.user ?
@@ -40,18 +44,18 @@ class DrawerNavigates extends React.Component {
                         <TouchableOpacity onPress={() => this._signOut()}>
                             <Text style={styles.item}>Sign Out</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                        <TouchableOpacity onPress={() => this._onClick('orderHistory')}>
                             <Text style={[
                                 styles.item,
-                                (routeName.length && routeName[routeName.length - 1].routeName == "Profile") && styles.activeItem
-                            ]}>Profile</Text>
+                                (routeName.length && routeName[routeName.length - 1].routeName == "orderHistory") && styles.activeItem
+                            ]}>Order History</Text>
                         </TouchableOpacity>
                     </>
                     :
-                    <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                    <TouchableOpacity onPress={() => this._onClick('signIn')}>
                         <Text style={[
                             styles.item,
-                            (routeName.length && routeName[routeName.length - 1].routeName === 'SignIn') && styles.activeItem
+                            (routeName.length && routeName[routeName.length - 1].routeName === 'signIn') && styles.activeItem
                         ]}>Sign In</Text>
                     </TouchableOpacity>
                 }

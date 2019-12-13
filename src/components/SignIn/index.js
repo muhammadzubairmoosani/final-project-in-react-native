@@ -68,7 +68,7 @@ class SignInScreen extends Component {
                                 block
                                 info
                                 style={{ margin: 10, marginTop: 20, marginBottom: 20 }}
-                                onPress={() => this.props.navigation.navigate('SignUp')}
+                                onPress={() => this.props.navigation.navigate('signUp')}
                             >
                                 <Text>Sign up</Text>
                             </Button>

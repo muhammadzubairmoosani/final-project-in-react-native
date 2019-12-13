@@ -24,43 +24,40 @@ class CheckOutScreen extends Component {
         const { userStatusDispatch, user, checkOutDispatch } = this.props;
         const { city, fullName, email, phone, province, address, country } = this.state;
         userStatusDispatch();
-        // if (city && fullName && email && phone && province && address && country) {
-        if (user) {
-            checkOutDispatch(this.state)
-            console.log(this.state)
-            this.setState({
-                city: '',
-                email: '',
-                phone: '',
-                country: '',
-                address: '',
-                province: '',
-                fullName: ''
-            })
+        if (city && fullName && email && phone && province && address && country) {
+            if (user) {
+                checkOutDispatch(this.state)
+                this.setState({
+                    city: '',
+                    email: '',
+                    phone: '',
+                    country: '',
+                    address: '',
+                    province: '',
+                    fullName: ''
+                })
+            }
+            else {
+                Alert.alert(
+                    'Alert',
+                    'Please Sign-in First Before Proceed to Order',
+                    [
+                        { text: 'Cancel', style: 'cancel' },
+                        { text: 'OK', onPress: () => this.props.navigation.navigate('signIn') },
+                    ],
+                    { cancelable: false },
+                );
+            }
         }
         else {
             Alert.alert(
                 'Alert',
-                'Please Sign-in First Before Proceed to Order',
-                [
-                    { text: 'Cancel', style: 'cancel' },
-                    { text: 'OK', onPress: () => this.props.navigation.navigate('SignIn') },
-                ],
-                { cancelable: false },
-            );
+                'Please Fill out all fields required.',
+                [{ text: 'OK' }]
+            )
         }
     }
-    //     else {
-    //         Alert.alert(
-    //             'Alert',
-    //             'Please Fill out all fields required.',
-    //             [{ text: 'OK' }]
-    //         )
-    //     }
-    // }
     render() {
-        console.log(this.props.user && this.props.user.uid)
-        // console.log('hlkasdjfklajsdf')
         return (
             <Container>
                 <Content>
@@ -115,7 +112,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         checkOutDispatch: data => dispatch(cartMiddleWare.checkOut(data)),
-        // checkOutDispatch: data => console.log(data),
         userStatusDispatch: () => dispatch(authMiddleware.isStatus())
     }
 }

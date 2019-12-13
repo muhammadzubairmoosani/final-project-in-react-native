@@ -18,7 +18,7 @@ export default class authAction {
         return { type: SIGNUP_SUCCESS, payload: data }
     }
 
-    static signuUpFailure(data) {
+    static signUpFailure(data) {
         return { type: SIGNUP_FAILURE, payload: data }
     }
 

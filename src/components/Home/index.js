@@ -26,7 +26,7 @@ class HomeScreen extends React.Component {
     }
     viewItemDetail(id) {
         this.props.viewDetailDispatch(id)
-        this.props.navigation.navigate('Details')
+        this.props.navigation.navigate('details')
     }
     render() {
         const { reducer } = this.props;

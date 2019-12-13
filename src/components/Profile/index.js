@@ -6,10 +6,10 @@ import authMiddleware from '../../../store/middleWare/authMiddleware';
 import { StyleSheet } from 'react-native';
 import { TouchableOpacity, ScrollView } from 'react-native';
 
-class ProfileScreen extends Component {
+class OrderHistoryScreen extends Component {
     state = {
-        show: false,
-        id: null
+        show: true,
+        id: 0
     }
     componentDidMount() {
         this.props.getOrderDispatch(this.props.user.uid)
@@ -17,6 +17,7 @@ class ProfileScreen extends Component {
     render() {
         const { isLoading, orders, user } = this.props;
         const { show, id } = this.state;
+        console.log('=======', orders)
         let total = 0;
         return (
             <ScrollView style={styles.container}>
@@ -32,31 +33,30 @@ class ProfileScreen extends Component {
                                         onPress={() => this.setState({ show: true, id: index == id ? null : index })}
                                     >
                                         <View>
-                                            <Text style={styles.title}>Order Date: {item.date}</Text>
+                                            <Text>Order Date: {item.date}</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <View style={styles.flex}>
-                                        {/* <View style={styles.thumbnail}> */}
-                                            {/* <Thumbnail style={{ flex: 2 }} source={{ uri: i.img }} /> */}
-                                        {/* </View> */}
-                                        <Text style={[styles.text, { flex: 2 }]}>Image</Text>
-                                        <Text style={[styles.text, { flex: 2 }]}>Brand</Text>
-                                        <Text style={[styles.text, { flex: 1 }]}>Price</Text>
-                                        <Text style={[styles.text, { flex: 0.5 }]}>Qty</Text>
-                                        <Text style={[styles.text, { flex: 1 }]}>Sub-total</Text>
-                                    </View>
+                                    {/* <View style={styles.flex}>
+                                                <Text style={[styles.text, { flex: 2 }]}>Image</Text>
+                                                <Text style={[styles.text, { flex: 2 }]}>Brand</Text>
+                                                <Text style={[styles.text, { flex: 2 }]}>Price</Text>
+                                                <Text style={[styles.text, { flex: 1 }]}>Qty</Text>
+                                                <Text style={[styles.text, { flex: 2 }]}>total</Text>
+                                            </View> */}
                                     {show && id === index &&
                                         item.orderList.map(i => {
                                             total = i.price * i.qty;
-                                            return <View style={styles.flex}>
-                                                <View style={styles.thumbnail}>
-                                                    <Thumbnail style={{ flex: 2 }} source={{ uri: i.img }} />
+                                            return (
+                                                <View style={styles.flex}>
+                                                    <View style={styles.thumbnail}>
+                                                        <Thumbnail small style={{ flex: 2 }} source={{ uri: i.img }} />
+                                                    </View>
+                                                    <Text style={[styles.text, { flex: 2 }]}>{i.brand_name}</Text>
+                                                    <Text style={[styles.text, { flex: 1 }]}>Rs.{i.price}</Text>
+                                                    <Text style={[styles.text, { flex: 1 }]}>{i.qty}</Text>
+                                                    <Text style={[styles.text, { flex: 1 }]}>Rs.{total}</Text>
                                                 </View>
-                                                <Text style={[styles.text, { flex: 2 }]}>{i.brand_name}</Text>
-                                                <Text style={[styles.text, { flex: 1 }]}>Rs.{i.price}</Text>
-                                                <Text style={[styles.text, { flex: 0.5 }]}>{i.qty}</Text>
-                                                <Text style={[styles.text, { flex: 1 }]}>Rs.{total}</Text>
-                                            </View>
+                                            )
                                         })
                                     }
                                 </View>
@@ -73,16 +73,14 @@ const styles = StyleSheet.create({
     container: {
         marginRight: 8,
         marginLeft: 8,
-        marginTop: 15,
+        marginTop: 15
     },
     header: {
-        backgroundColor: '#6c757d',
-        borderRadius: 5,
-        marginBottom: 3,
-        padding: 13,
-    },
-    title: {
-        color: '#f7f7f7'
+        backgroundColor: '#F8F8F8',
+        padding: 15,
+        borderBottomColor: '#D8D8D8',
+        borderBottomWidth: 1,
+        marginBottom: 1
     },
     text: {
         fontSize: 12,
@@ -92,20 +90,23 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-around',
-        // borderWidth: 1,
-        // borderColor: 'black',
+        justifyContent: 'center',
+        borderRightColor: '#D8D8D8',
+        borderLeftColor: '#D8D8D8',
+        borderRightWidth: 1,
+        borderLeftWidth: 1,
+        padding: 5,
+        paddingTop: 8,
+        paddingBottom: 8
+
     },
     thumbnail: {
-        alignSelf: 'center',
-        marginTop: 15,
-        borderWidth: 0.5,
+        borderWidth: 0.2,
         borderColor: '#999',
         borderRadius: 50,
         padding: 5
     }
 })
-
 const mapStateToProps = state => {
     return {
         orders: state.productReducer.orders,
@@ -119,5 +120,4 @@ const mapDispatchToProps = dispatch => {
         getUserStatusDispatch: () => dispatch(authMiddleware.isStatus()),
     }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(OrderHistoryScreen)
